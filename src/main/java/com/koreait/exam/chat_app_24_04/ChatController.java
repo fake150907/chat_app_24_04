@@ -5,14 +5,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("/chat")
 public class ChatController {
-    ChatMessage message = new ChatMessage("홍길동", "안녕하세요");
+    private List<ChatMessage> chatMessages = new ArrayList<>();
+
+    public record writeMessageResponse(long id){
+
+    }
 
     @PostMapping("/writeMessage")
     @ResponseBody
     public RsData writeMessage() {
-        return new RsData("S-1","메세지가 작성됨", message);
+        ChatMessage message = new ChatMessage("홍길동", "안녕하세요");
+
+        chatMessages.add(message);
+
+        return new RsData("S-1","메세지가 작성됨", new writeMessageResponse(message.getId()));
     }
 }

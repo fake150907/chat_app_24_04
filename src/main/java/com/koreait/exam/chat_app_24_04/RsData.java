@@ -8,5 +8,5 @@ import lombok.Getter;
 public class RsData<T> {
     private String resultCode;
     private String msg;
-    private ChatMessage data;
+    private T data;
 }
